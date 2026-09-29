@@ -1,0 +1,58 @@
+/* Local Mart design tokens.
+   Single source of truth for colour, radius, spacing and type.
+   Nothing below this file should hard-code a hex value. */
+
+:root {
+  /* Brand */
+  --lm-brand: #15573f;
+  --lm-brand-ink: #1b3a2e;
+  --lm-brand-deep: #0f3b2c;
+  --lm-ai-mint: #bfe8cf;
+
+  /* Surfaces */
+  --lm-page: #f3f6f1;
+  --lm-surface: #ffffff;
+  --lm-hero-from: #f7faf5;
+  --lm-hero-to: #e2efe3;
+  --lm-line: #d5e3d8;
+  --lm-tile: #f0f3ef;
+  --lm-muted: #52665d;
+
+  /* Plan & convenience */
+  --lm-plan-bg: #eef4d6;
+  --lm-plan-line: #dbe6b5;
+  --lm-plan-ink: #4d5c10;
+
+  /* Medicine (strict) */
+  --lm-rx: #9a3412;
+  --lm-rx-bg: #fbf1ea;
+  --lm-rx-line: #e2b89c;
+
+  /* Radii */
+  --lm-r-card: 20px;
+  --lm-r-panel: 28px;
+  --lm-r-control: 12px;
+  --lm-r-tile: 14px;
+  --lm-r-chip: 999px;
+
+  /* Spacing — 4px base */
+  --lm-s1: 4px;
+  --lm-s2: 8px;
+  --lm-s3: 12px;
+  --lm-s4: 16px;
+  --lm-s5: 24px;
+  --lm-s6: 32px;
+  --lm-s7: 48px;
+  --lm-s8: 64px;
+
+  /* Type */
+  --lm-sans: 'Kanit', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --lm-bengali: 'Noto Sans Bengali', 'Kanit', system-ui, sans-serif;
+
+  /* Minimum interactive height — touch target */
+  --lm-tap: 44px;
+
+  /* Page gutter, shared by every section so they align */
+  --lm-gutter: clamp(16px, 4vw, 40px);
+  --lm-max: 1200px;
+}
