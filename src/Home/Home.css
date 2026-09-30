@@ -207,6 +207,24 @@
   z-index: 40;
   background: #fff;
   border-bottom: 1px solid var(--lm-line);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Past the fold the bar reads as lifted off the page it now overlaps. */
+.lm-header--scrolled {
+  box-shadow: 0 8px 22px rgba(15, 59, 44, 0.1);
+}
+
+/* Parked off-screen on the way down. The transform beats sticky positioning,
+   so the bar leaves without the page shifting under it. */
+.lm-header--hidden {
+  transform: translate3d(0, -100%, 0);
+  pointer-events: none;
+}
+/* Tabbing into a parked bar must bring it back, or focus lands out of sight. */
+.lm-header--hidden:focus-within {
+  transform: none;
+  pointer-events: auto;
 }
 
 .lm-header__strip {
@@ -1390,6 +1408,214 @@
   color: var(--lm-brand);
 }
 
+/* ------------------------------------------------------- Floating support bot */
+
+/* Sits above the sticky header (z-index 40) so the panel is never clipped. */
+.lm-support {
+  position: fixed;
+  inset-block-end: var(--lm-gutter);
+  inset-inline-end: var(--lm-gutter);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--lm-s3);
+}
+
+.lm-support__fab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lm-s2);
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s5);
+  border: 1px solid var(--lm-brand-deep);
+  border-radius: var(--lm-r-chip);
+  background: var(--lm-brand);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(15, 59, 44, 0.24);
+  transition: background-color 0.2s;
+}
+.lm-support__fab:hover {
+  background: var(--lm-brand-deep);
+}
+.lm-support__fab-icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.lm-support__panel {
+  display: flex;
+  flex-direction: column;
+  width: min(370px, calc(100vw - (var(--lm-gutter) * 2)));
+  max-height: min(540px, calc(100dvh - 140px));
+  overflow: hidden;
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+  box-shadow: 0 18px 44px rgba(15, 59, 44, 0.18);
+  animation: lm-support-in 0.18s ease-out;
+}
+.lm-support__panel[hidden] {
+  display: none;
+}
+@keyframes lm-support-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.lm-support__head {
+  display: flex;
+  align-items: center;
+  gap: var(--lm-s3);
+  padding: var(--lm-s4);
+  background: var(--lm-brand-ink);
+  color: #fff;
+}
+.lm-support__head-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.lm-support__title {
+  font-size: 15px;
+  font-weight: 500;
+}
+.lm-support__sub {
+  font-size: 12px;
+  color: var(--lm-ai-mint);
+}
+.lm-support__close {
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 10px;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+.lm-support__close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.lm-support__close:focus-visible {
+  outline-color: var(--lm-ai-mint);
+}
+
+.lm-support__log {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s2);
+  padding: var(--lm-s4);
+  background: var(--lm-page);
+}
+
+.lm-support__msg {
+  max-width: 88%;
+  padding: var(--lm-s3);
+  border-radius: var(--lm-r-tile);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.lm-support__msg--bot {
+  align-self: flex-start;
+  border: 1px solid var(--lm-line);
+  border-start-start-radius: var(--lm-s1);
+  background: #fff;
+  color: var(--lm-brand-ink);
+}
+.lm-support__msg--customer {
+  align-self: flex-end;
+  border-start-end-radius: var(--lm-s1);
+  background: var(--lm-brand);
+  color: #fff;
+}
+.lm-support__msg--wait {
+  color: var(--lm-muted);
+}
+
+.lm-support__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lm-s2);
+  padding: 0 var(--lm-s4) var(--lm-s4);
+  background: var(--lm-page);
+}
+.lm-support__topic {
+  min-height: 34px;
+  padding: 0 var(--lm-s3);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-chip);
+  background: #fff;
+  color: var(--lm-brand-ink);
+  font-size: 13px;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.lm-support__topic:hover {
+  border-color: var(--lm-brand);
+  color: var(--lm-brand);
+}
+
+.lm-support__form {
+  display: flex;
+  gap: var(--lm-s2);
+  padding: var(--lm-s3) var(--lm-s4);
+  border-top: 1px solid var(--lm-line);
+}
+.lm-support__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s3);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-control);
+  background: #fff;
+  font-size: 14px;
+}
+.lm-support__send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--lm-tap);
+  height: var(--lm-tap);
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: var(--lm-r-control);
+  background: var(--lm-brand);
+  color: #fff;
+  cursor: pointer;
+}
+.lm-support__send:hover:not(:disabled) {
+  background: var(--lm-brand-deep);
+}
+.lm-support__send:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.lm-support__send-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.lm-support__foot {
+  padding: 0 var(--lm-s4) var(--lm-s4);
+  font-size: 12px;
+  color: var(--lm-muted);
+}
+
 /* ============================================================ Breakpoints */
 
 /* 1024 — tablet landscape */
@@ -1482,5 +1708,22 @@
   }
   .lm-footer__links {
     gap: var(--lm-s4);
+  }
+
+  .lm-support__fab {
+    padding: 0;
+    width: var(--lm-tap);
+    justify-content: center;
+  }
+  .lm-support__fab-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .lm-support__panel {
+    max-height: calc(100dvh - 120px);
   }
 }

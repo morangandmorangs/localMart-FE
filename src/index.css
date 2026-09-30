@@ -1,94 +1,162 @@
+/* Layer order, declared once. Tailwind's theme and utilities sit either side of
+   the app's own CSS: a utility always wins against the lm- class it is put next
+   to, and the base reset always loses to both. Unlayered CSS would outrank
+   every utility no matter its specificity, which is why nothing here is
+   left unlayered. */
+@layer theme, base, components, utilities;
+
 @import './styles/tokens.css';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+/* Loaded here, not from Home.tsx, so the homepage CSS lands in the components
+   layer — a plain `import './Home.css'` in the component is unlayered and would
+   beat every utility class put beside an lm- class. */
+@import './Home/Home.css' layer(components);
+
+/* Tailwind's preflight is deliberately left out. The reset in @layer base below
+   is this app's own and covers the same ground; the two overlap and disagree —
+   preflight zeroes margin, padding and border on every element and sets
+   headings to font-size: inherit. To adopt it instead, add
+   `@import 'tailwindcss/preflight.css' layer(base);` above and delete the
+   overlapping rules here. Border utilities do not need it: v4 carries its own
+   --tw-border-style default. */
+
+/* The tokens are the Tailwind theme, so `bg-brand` and `background: var(--lm-brand)`
+   are the same colour and tokens.css stays the one place a value is written.
+   Deliberately not `@theme inline`: inlining substitutes var(--lm-brand) straight
+   into the utility, and Tailwind then drops opacity modifiers it cannot resolve
+   (`bg-brand/50` came out fully opaque). Referencing the token keeps the
+   color-mix() path working. */
+@theme {
+  --color-brand: var(--lm-brand);
+  --color-brand-ink: var(--lm-brand-ink);
+  --color-brand-deep: var(--lm-brand-deep);
+  --color-mint: var(--lm-ai-mint);
+
+  --color-page: var(--lm-page);
+  --color-surface: var(--lm-surface);
+  --color-line: var(--lm-line);
+  --color-tile: var(--lm-tile);
+  --color-muted: var(--lm-muted);
+
+  --color-plan: var(--lm-plan-bg);
+  --color-plan-line: var(--lm-plan-line);
+  --color-plan-ink: var(--lm-plan-ink);
+
+  --color-rx: var(--lm-rx);
+  --color-rx-bg: var(--lm-rx-bg);
+  --color-rx-line: var(--lm-rx-line);
+
+  --radius-card: var(--lm-r-card);
+  --radius-panel: var(--lm-r-panel);
+  --radius-control: var(--lm-r-control);
+  --radius-tile: var(--lm-r-tile);
+  --radius-chip: var(--lm-r-chip);
+
+  --font-sans: var(--lm-sans);
+  --font-bengali: var(--lm-bengali);
+
+  /* min-h-tap for the 44px touch target, max-w-page for the shared measure. */
+  --spacing-tap: var(--lm-tap);
+  --container-page: var(--lm-max);
 }
 
-html {
-  /* Anchor links (#ai-diet-planner, #plan) must clear the sticky header. */
-  scroll-behavior: smooth;
-  scroll-padding-top: 88px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+@layer base {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    box-sizing: border-box;
+  }
+
+  html {
+    /* Anchor links (#ai-diet-planner, #plan) must clear the sticky header. */
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    background: var(--lm-page);
+    color: var(--lm-brand-ink);
+    font-family: var(--lm-sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* No horizontal scroll at 390px, whatever a child does. */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  figure {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: var(--lm-brand);
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+    color: inherit;
   }
 }
 
-body {
-  margin: 0;
-  background: var(--lm-page);
-  color: var(--lm-brand-ink);
-  font-family: var(--lm-sans);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  /* No horizontal scroll at 390px, whatever a child does. */
-  overflow-x: hidden;
-}
+/* App primitives. In components rather than unlayered, so a utility beside one
+   of them still takes effect. */
+@layer components {
+  /* One focus treatment for the whole app, in brand green. */
+  :where(a, button, input, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--lm-brand);
+    outline-offset: 2px;
+    border-radius: var(--lm-s1);
+  }
 
-h1,
-h2,
-h3,
-h4,
-p,
-figure {
-  margin: 0;
-}
-
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-img,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
-a {
-  color: var(--lm-brand);
-  text-decoration: none;
-}
-
-button,
-input,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-/* One focus treatment for the whole app, in brand green. */
-:where(a, button, input, select, [tabindex]):focus-visible {
-  outline: 2px solid var(--lm-brand);
-  outline-offset: 2px;
-  border-radius: var(--lm-s1);
-}
-
-.lm-visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+  .lm-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
 }
