@@ -1,0 +1,218 @@
+.lm-nf {
+  --nf-b: #e9a23b;
+  width: min(100% - (var(--lm-gutter) * 2), 40rem);
+  margin-inline: auto;
+  padding-block: clamp(var(--lm-s5), 6vw, var(--lm-s8));
+  text-align: center;
+  color: var(--lm-muted);
+}
+
+.lm-nf__scene {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+.lm-nf__plank {
+  fill: currentColor;
+  opacity: 0.35;
+}
+
+/* Stock pops in once, shelf by shelf. */
+.lm-nf__item {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: nf-pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes nf-pop {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+.lm-nf__frame {
+  fill: none;
+  stroke: currentColor;
+  stroke-opacity: 0.25;
+}
+
+.lm-nf__qmark {
+  font-size: 30px;
+  font-weight: 700;
+  fill: var(--lm-brand-ink, currentColor);
+  animation: nf-bob 1.6s ease-in-out infinite;
+}
+@keyframes nf-bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* The magnifier wanders shelf to shelf and lingers over the empty slot. */
+.lm-nf__lens {
+  animation: nf-search 9s ease-in-out infinite;
+}
+.lm-nf__glass {
+  fill: currentColor;
+  opacity: 0.12;
+}
+.lm-nf__rim,
+.lm-nf__handle {
+  fill: none;
+  stroke: var(--lm-brand-ink, currentColor);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+@keyframes nf-search {
+  0%,
+  100% {
+    transform: translate(60px, 38px);
+  }
+  20% {
+    transform: translate(250px, 44px);
+  }
+  40% {
+    transform: translate(250px, 106px);
+  }
+  60% {
+    transform: translate(160px, 112px); /* hovers on the gap */
+  }
+  72% {
+    transform: translate(160px, 112px) scale(1.25);
+  }
+  84% {
+    transform: translate(60px, 170px);
+  }
+}
+
+.lm-nf__code {
+  margin-top: var(--lm-s3);
+  font-size: clamp(56px, 16vw, 88px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--lm-brand-ink, currentColor);
+}
+.lm-nf__zero {
+  display: inline-block;
+  color: var(--nf-b);
+  animation: nf-roll 4s ease-in-out infinite;
+}
+@keyframes nf-roll {
+  0%,
+  70%,
+  100% {
+    transform: rotate(0);
+  }
+  85% {
+    transform: rotate(360deg);
+  }
+}
+
+.lm-nf h1 {
+  margin-block: var(--lm-s3) var(--lm-s2);
+  font-size: clamp(20px, 5vw, 28px);
+  font-weight: 600;
+  color: var(--lm-brand-ink, currentColor);
+}
+.lm-nf__lede {
+  max-width: 32rem;
+  margin-inline: auto;
+  overflow-wrap: anywhere;
+}
+
+/* Four lines share one slot and fade through in turn. */
+.lm-nf__status {
+  position: relative;
+  height: 1.6em;
+  margin-block: var(--lm-s4);
+  font-size: 14px;
+}
+.lm-nf__status span {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: nf-line 12s linear infinite;
+}
+@keyframes nf-line {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  4%,
+  22% {
+    opacity: 1;
+    transform: none;
+  }
+  26%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.lm-nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lm-s3);
+  justify-content: center;
+}
+.lm-nf__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--lm-s5);
+  border-radius: 999px;
+  border: 1px solid var(--lm-brand-ink, currentColor);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.lm-nf__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+.lm-nf__btn:focus-visible {
+  outline: 3px solid var(--nf-b);
+  outline-offset: 2px;
+}
+.lm-nf__btn--solid {
+  background: var(--lm-brand-ink, #1b3a2d);
+  color: #fff;
+}
+.lm-nf__btn--outline {
+  background: #fff;
+  color: var(--lm-brand-ink, #1b3a2d);
+}
+
+/* Phones: stack the buttons full width, keep the status line from wrapping. */
+@media (max-width: 480px) {
+  .lm-nf__actions {
+    flex-direction: column;
+  }
+  .lm-nf__btn {
+    width: 100%;
+  }
+  .lm-nf__status {
+    height: 2.8em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lm-nf__item,
+  .lm-nf__qmark,
+  .lm-nf__lens,
+  .lm-nf__zero,
+  .lm-nf__status span {
+    animation: none;
+  }
+  .lm-nf__lens {
+    transform: translate(160px, 112px);
+  }
+  .lm-nf__status span:first-child {
+    opacity: 1;
+  }
+}

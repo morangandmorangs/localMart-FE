@@ -1,0 +1,25 @@
+.lm-info {
+  width: min(100% - (var(--lm-gutter) * 2), 42rem);
+  margin-inline: auto;
+  padding-block: var(--lm-s8);
+  color: var(--lm-muted);
+}
+.lm-info h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--lm-brand-ink);
+  margin-bottom: var(--lm-s3);
+}
+.lm-info__intro {
+  margin-bottom: var(--lm-s4);
+}
+.lm-info ul {
+  margin: 0 0 var(--lm-s5) var(--lm-s5);
+  display: grid;
+  gap: var(--lm-s2);
+  list-style: disc;
+}
+.lm-info a {
+  color: var(--lm-brand);
+  text-decoration: underline;
+}

@@ -16,7 +16,7 @@ import {
   customerRoutes,
 } from "./config/MainConfigRoutes/customer.routes";
 import { driverAuthRoutes } from "./config/MainConfigRoutes/driver.routes";
-import { immediateRoutes } from "./config/immediate.routes";
+import { fallbackRoute, immediateRoutes } from "./config/immediate.routes";
 import { Toaster } from "react-hot-toast";
 const App = () => {
   const location = useLocation();
@@ -99,6 +99,8 @@ const App = () => {
           ...driverAuthRoutes,
           ...adminAuthRoutes,
         ].map(({ path, component }) => createAuthRoute(path, component))}
+        {/* 404 — must stay last */}
+        {createImmediateRoute(fallbackRoute.path, fallbackRoute.component)}
       </Routes>
     </>
   );

@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const PAGE_TITLES: Record<string, string> = {
-  "/": "Home",
+  "/": "Local Mart - Home",
   "/category/livestock-vegetables": "Livestock & Vegetables",
   "/category/grocery": "Grocery",
   "/category/food": "Food",
   "/category/medicine": "Medicine",
+  "/about": "About - Local Mart",
+  "/sell": "Sell on Local Mart",
+  "/help": "Help - Local Mart",
+  "/terms": "Terms - Local Mart",
+  "/support": "Support - Local Mart",
 };
 
 const FALLBACK_TITLE = "Local Mart";
