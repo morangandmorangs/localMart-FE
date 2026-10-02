@@ -15,6 +15,7 @@ import { apiSlice } from "./apiSlice";
 import { createIdbStorage } from "./idbStorage";
 import authReducer from "./Slices/authSlice";
 import cartReducer from "./Slices/cartSlice";
+import scheduleReducer from "./Slices/scheduleSlice";
 import staffAuthReducer from "./Slices/staffAuthSlice";
 
 // Create IndexedDB storage for redux-persist
@@ -25,13 +26,14 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage: idbStorage,
-  whitelist: ["auth", "cart", "staffAuth"],
+  whitelist: ["auth", "cart", "staffAuth", "schedule"],
   blacklist: ["api"], // Don't persist API cache
 };
 
 const rootReducer = combineReducers({
   auth: authReducer,
   cart: cartReducer,
+  schedule: scheduleReducer,
   staffAuth: staffAuthReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });

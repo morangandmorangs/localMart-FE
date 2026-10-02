@@ -48,3 +48,153 @@
     grid-column: 2;
   }
 }
+
+/* Suggested monthly plan, rendered under the cart. */
+.lm-plan {
+  margin-top: var(--lm-s6, 32px);
+}
+.lm-plan__meals {
+  display: grid;
+  gap: var(--lm-s2);
+  margin: var(--lm-s4) 0;
+  font-size: 14px;
+}
+.lm-plan__meals span {
+  display: block;
+  color: var(--lm-muted, inherit);
+}
+.lm-plan__row {
+  grid-template-columns: 56px 1fr auto;
+}
+.lm-plan__emoji {
+  font-size: 40px;
+  line-height: 1;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .lm-plan__row {
+    grid-template-columns: 48px 1fr;
+  }
+}
+
+/* AI diet planner (Plan-features/AiDietPlannerPage). */
+.lm-aidiet__drop {
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  padding: var(--lm-s4);
+  border: 2px dashed var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+  cursor: pointer;
+  text-align: center;
+}
+.lm-aidiet__drop input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.lm-aidiet__drop:focus-within {
+  outline: 2px solid var(--lm-brand-ink);
+  outline-offset: 2px;
+}
+.lm-aidiet__drop img {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 8px;
+}
+.lm-aidiet__progress {
+  margin-top: var(--lm-s4);
+}
+.lm-aidiet__bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--lm-line);
+  overflow: hidden;
+}
+.lm-aidiet__bar span {
+  display: block;
+  height: 100%;
+  background: var(--lm-brand-ink);
+  transition: width 0.4s ease;
+}
+.lm-aidiet__progress ul {
+  display: grid;
+  gap: var(--lm-s2);
+  margin-top: var(--lm-s3);
+  font-size: 14px;
+}
+.lm-aidiet__progress li[data-state="todo"] {
+  opacity: 0.5;
+}
+.lm-aidiet__week {
+  margin-top: var(--lm-s4);
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+}
+.lm-aidiet__week-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--lm-s4);
+}
+.lm-aidiet__week-head h3 {
+  font-weight: 600;
+}
+.lm-aidiet__week-head p {
+  font-size: 14px;
+}
+.lm-aidiet__week-head .lm-aidiet__price {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--lm-brand-ink);
+  white-space: nowrap;
+}
+.lm-aidiet__lines {
+  display: grid;
+  margin-top: var(--lm-s3);
+  font-size: 14px;
+}
+.lm-aidiet__lines li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto 64px;
+  align-items: center;
+  gap: var(--lm-s3);
+  padding: 6px 0;
+  border-top: 1px solid var(--lm-line);
+}
+.lm-aidiet__name {
+  min-width: 0;
+  text-align: left;
+}
+.lm-aidiet__qty {
+  font-weight: 600;
+}
+.lm-aidiet__line-price {
+  text-align: right;
+}
+.lm-aidiet__actions {
+  display: flex;
+  gap: var(--lm-s3);
+}
+@media (max-width: 560px) {
+  .lm-aidiet__lines li {
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+  }
+  .lm-aidiet__line-price {
+    display: none;
+  }
+  .lm-aidiet__summary {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lm-aidiet__actions .lm-btn {
+    flex: 1;
+  }
+  .lm-aidiet__drop {
+    min-height: 120px;
+  }
+}

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { CATEGORIES, categoryPath } from "../../lib/catalog/categories";
 import { ArrowRightIcon, CalendarIcon, GiftIcon, SparkleIcon } from "./Icons";
 import { Tag } from "./Tag";
@@ -36,7 +37,7 @@ export function CategoryQuickCard() {
         <Tag>AI + PLANNING</Tag>
       </div>
 
-      <a className='lm-quick__ai' href='#ai-diet-planner'>
+      <Link className='lm-quick__ai' to='/ai-diet-planner'>
         <span className='lm-quick__ai-mark'>
           <SparkleIcon />
         </span>
@@ -49,7 +50,7 @@ export function CategoryQuickCard() {
           </span>
         </span>
         <ArrowRightIcon className='lm-quick__ai-arrow' />
-      </a>
+      </Link>
 
       <ul className='lm-quick__plans'>
         <li>

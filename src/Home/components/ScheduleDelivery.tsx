@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
@@ -11,6 +11,10 @@ import {
 import { formatCurrency } from "../../lib/api/wallet";
 import { useWallet } from "../../hooks/useWallet";
 import { selectIsAuthenticated } from "../../redux-store/Slices/authSlice";
+import {
+  selectScheduledDeliveries,
+  unscheduleDelivery,
+} from "../../redux-store/Slices/scheduleSlice";
 import { WalletIcon } from "./Icons";
 
 const describe = (days: WeekDay[]) =>
@@ -31,6 +35,8 @@ interface Props {
 export function ScheduleDelivery({ onOpenChange }: Props) {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const deliveries = useSelector(selectScheduledDeliveries);
   const { pathname, search } = useLocation();
   const wallet = useWallet();
 
@@ -108,9 +114,43 @@ export function ScheduleDelivery({ onOpenChange }: Props) {
       >
         <WalletIcon className='lm-nav__icon' />
         <span>Schedule</span>
+        {deliveries.length > 0 && (
+          <span className='lm-schedule__count' aria-label={`${deliveries.length} scheduled`}>
+            {deliveries.length}
+          </span>
+        )}
       </button>
 
       <div id={panelId} className='lm-schedule__panel' hidden={!open}>
+        {deliveries.length > 0 && (
+          <>
+            <p className='lm-schedule__title'>Scheduled deliveries</p>
+            <ul className='lm-schedule__list'>
+              {deliveries.map((d) => (
+                <li key={d.id}>
+                  <span>
+                    <b>{d.label}</b>
+                    <small>
+                      {new Date(d.deliverOn).toLocaleDateString(undefined, {
+                        weekday: "short",
+                        day: "numeric",
+                        month: "short",
+                      })}{" "}
+                      · ₹{d.total}
+                    </small>
+                  </span>
+                  <button
+                    type='button'
+                    aria-label={`Remove ${d.label}`}
+                    onClick={() => dispatch(unscheduleDelivery(d.id))}
+                  >
+                    ✕
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
         <p className='lm-schedule__title'>Schedule food delivery</p>
         <p className='lm-schedule__hint'>
           Monday to Friday · morning slot

@@ -402,6 +402,40 @@
   font-size: 13px;
   color: var(--lm-muted);
 }
+.lm-schedule__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--lm-brand-ink);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+.lm-schedule__list {
+  display: grid;
+  gap: var(--lm-s2);
+  max-height: 220px;
+  overflow-y: auto;
+}
+.lm-schedule__list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lm-s3);
+  font-size: 13px;
+}
+.lm-schedule__list small {
+  display: block;
+  color: var(--lm-muted);
+}
+.lm-schedule__list button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--lm-muted);
+}
 .lm-schedule__panel .lm-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;

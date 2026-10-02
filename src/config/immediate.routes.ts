@@ -1,6 +1,7 @@
 import CartPage from "../Common/Cart/CartPage";
 import CategoryPage from "../Category/CategoryPage";
 import CheckoutPage from "../Checkout/CheckoutPage";
+import AiDietPlannerPage from "../Plan-features/AiDietPlannerPage";
 import Home from "../Home/Home";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import InfoPage from "../pages/Info/InfoPage";
@@ -12,6 +13,7 @@ export const immediateRoutes = [
   { path: "/category/:slug", component: CategoryPage },
   { path: "/restaurant/:id", component: RestaurantPage },
   { path: "/cart", component: CartPage },
+  { path: "/ai-diet-planner", component: AiDietPlannerPage },
   { path: "/checkout", component: CheckoutPage },
   // Footer and support-bot links; InfoPage picks its copy from the pathname.
   { path: "/about", component: InfoPage },

@@ -3,7 +3,9 @@ import { fetchBaseQuery, type BaseQueryFn } from "@reduxjs/toolkit/query/react";
 import { logout, selectToken } from "../redux-store/Slices/authSlice";
 import { selectStaffToken, staffLogout } from "../redux-store/Slices/staffAuthSlice";
 
-export const DEV_API_URL = "http://localhost:8080/api";
+// Set VITE_API_URL in .env.production; dev falls back to the local backend.
+export const API_URL =
+  import.meta.env.VITE_API_URL ?? "http://localhost:8080/api";
 
 /** Error codes errorMiddleware.ts uses for an expired/invalid/missing token. */
 const AUTH_ERROR_CODES = new Set([
@@ -15,7 +17,7 @@ const AUTH_ERROR_CODES = new Set([
 type AuthState = Parameters<typeof selectToken>[0] & Parameters<typeof selectStaffToken>[0];
 
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: DEV_API_URL,
+  baseUrl: API_URL,
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as AuthState;
     // A tab is practically one persona at a time — shopper or staff, never

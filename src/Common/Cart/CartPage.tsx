@@ -6,6 +6,7 @@ import { ProductMedia } from "../../Category/components/ProductMedia";
 import { QuantityControl } from "../../Category/components/QuantityControl";
 import { Footer } from "../../Home/components/Footer";
 import { Header } from "../../Home/components/Header";
+import { MonthlyPlanCart } from "../../Plan-features/MonthlyPlanCart";
 import { useCartDraft } from "../../lib/useCartDraft";
 import { useGetProductsQuery } from "../../redux-store/Services/ProductApi";
 import { selectIsAuthenticated } from "../../redux-store/Slices/authSlice";
@@ -111,6 +112,8 @@ export default function CartPage() {
             </>
           )}
         </section>
+
+        <MonthlyPlanCart isAuthenticated={isAuthenticated} />
       </main>
 
       <Footer />
