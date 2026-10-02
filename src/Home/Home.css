@@ -108,7 +108,10 @@
   font-weight: 500;
   cursor: pointer;
   background: none;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
 .lm-btn:disabled {
   opacity: 0.55;
@@ -207,7 +210,9 @@
   z-index: 40;
   background: #fff;
   border-bottom: 1px solid var(--lm-line);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 /* Past the fold the bar reads as lifted off the page it now overlaps. */
@@ -240,24 +245,71 @@
   padding-block: var(--lm-s2);
 }
 
-.lm-logo {
-  display: inline-flex;
+/* Search + area picker live in the bar. They take the slack between the logo
+   and the nav, so the bar keeps its shape as the viewport changes. */
+.lm-header__controls {
+  display: flex;
   align-items: center;
-  gap: var(--lm-s2);
+  gap: var(--lm-s3);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 640px;
+}
+.lm-header__controls .lm-search {
+  flex: 1 1 58%;
+  min-width: 0;
+}
+.lm-header__controls .lm-location {
+  /* Compact: a fixed basis instead of a share of the row, so the search box
+     takes the slack. */
+  flex: 0 1 190px;
+  min-width: 0;
+}
+/* Both were drawn at 62px for the hero panel, which outgrows the bar. Height
+   here is set by content, not min-height: the search form's 8px block padding
+   wraps a 44px submit button, so the padding and the button have to come down
+   together or the box stays 62px tall whatever min-height says. */
+.lm-header__controls .lm-search,
+.lm-header__controls .lm-location__control {
   min-height: var(--lm-tap);
-  padding: 0 var(--lm-s4);
+  padding-block: 0;
+}
+.lm-header__controls .lm-search__submit {
+  width: 36px;
+  height: 36px;
+}
+.lm-header__controls .lm-search__label,
+.lm-header__controls .lm-location__label {
+  /* The stacked caption costs a line the bar hasn't got. Clipped rather than
+     display:none so it still names each control for screen readers. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* The delivery verdict can't sit in flow inside a 44px bar, so it drops out
+   as a popover and leaves the bar's height alone. Guarded with :not() because
+   this selector outranks .lm-visually-hidden and would otherwise reveal the
+   empty state. */
+.lm-header__controls .lm-location {
+  position: relative;
+}
+.lm-header__controls .lm-location__msg:not(.lm-visually-hidden) {
+  position: absolute;
+  top: calc(100% + var(--lm-s2));
+  inset-inline: 0;
+  z-index: 1;
+  min-width: max(100%, 260px);
+  margin-top: 0;
+  padding: var(--lm-s3);
+  border: 1px solid var(--lm-line);
   border-radius: var(--lm-r-control);
-  background: var(--lm-brand);
-  color: #fff;
-  font-weight: 500;
-  flex: none;
-}
-.lm-logo__icon {
-  width: 20px;
-  height: 20px;
-}
-.lm-logo__text {
-  font-size: 15px;
+  background: var(--lm-surface);
+  box-shadow: 0 8px 22px rgba(15, 59, 44, 0.12);
 }
 
 .lm-nav {
@@ -293,6 +345,66 @@
   display: flex;
   align-items: center;
   gap: var(--lm-s2);
+}
+
+/* Wallet balance chip in the bar. */
+.lm-wallet-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lm-s2);
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s3);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-chip);
+  background: var(--lm-tile);
+  color: var(--lm-brand-ink);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.lm-wallet-chip:hover {
+  background: var(--lm-plan-bg);
+}
+.lm-wallet-chip__skeleton {
+  display: inline-block;
+  width: 44px;
+  height: 14px;
+}
+
+/* "Schedule food delivery": a nav button that opens a Mon–Fri picker. */
+.lm-schedule {
+  position: relative;
+}
+.lm-schedule__panel {
+  position: absolute;
+  top: calc(100% + var(--lm-s2));
+  inset-inline-end: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s3);
+  width: min(92vw, 320px);
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+  box-shadow: 0 8px 22px rgba(15, 59, 44, 0.12);
+}
+.lm-schedule__panel[hidden] {
+  display: none;
+}
+.lm-schedule__title {
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-schedule__hint {
+  margin-top: calc(var(--lm-s2) * -1);
+  font-size: 13px;
+  color: var(--lm-muted);
+}
+.lm-schedule__panel .lm-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .lm-cart {
@@ -334,25 +446,60 @@
 .lm-mobile-menu[hidden] {
   display: none;
 }
+.lm-mobile-menu__location {
+  padding-block: var(--lm-s2) var(--lm-s3);
+  border-bottom: 1px solid var(--lm-line);
+}
+.lm-mobile-menu li + li {
+  border-top: 1px solid var(--lm-line);
+}
 .lm-mobile-menu a {
   display: flex;
   align-items: center;
   gap: var(--lm-s3);
-  min-height: var(--lm-tap);
+  min-height: 48px;
   color: var(--lm-brand-ink);
   font-size: 15px;
+}
+.lm-mobile-menu .lm-nav__icon {
+  width: 20px;
+  height: 20px;
 }
 
 /* -------------------------------------------------------------------- Hero */
 
 .lm-hero {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: clamp(24px, 4vw, 56px);
   margin-top: var(--lm-s5);
   padding: clamp(24px, 4vw, 48px);
   border-radius: var(--lm-r-panel);
   background: linear-gradient(135deg, var(--lm-hero-from), var(--lm-hero-to));
+  position: relative;
+  isolation: isolate;
+}
+
+/* Animated waves sit behind the content; the gradient above is the fallback
+   while WebGL loads or if it is unavailable. */
+.lm-hero__waves {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Clip the waves to the rounded hero here, not on .lm-hero, so overhanging
+     content such as the stamp is never cut off. */
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* The hero stacks down the middle on one shared measure. Centring is done
+   with flex/justify rather than `text-align: center` on .lm-hero, which would
+   cascade into the quick card and re-centre its copy. */
+.lm-hero__right {
+  position: relative;
+  width: min(100%, 720px);
 }
 
 .lm-hero__eyebrow {
@@ -397,52 +544,25 @@
   color: var(--lm-brand-ink);
 }
 
-.lm-hero__controls {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  gap: var(--lm-s3);
-  align-items: start;
-  margin-top: var(--lm-s3);
-}
-
 .lm-hero__chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--lm-s3);
-  margin-top: var(--lm-s6);
-}
-
-.lm-hero__trust {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--lm-s4);
   margin-top: var(--lm-s5);
 }
-.lm-hero__trust li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--lm-s3);
+
+/* Stamp keyframes; the Stamp component carries its styling as utilities. */
+@keyframes lm-stamp-press {
+  from {
+    opacity: 0;
+    scale: 1.5;
+  }
 }
-.lm-hero__trust-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--lm-brand);
-  flex: none;
-  margin-top: 2px;
-}
-.lm-hero__trust span span {
-  display: block;
-}
-.lm-hero__trust strong {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--lm-brand-ink);
-}
-.lm-hero__trust span span:last-child {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--lm-muted);
+@keyframes lm-stamp-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Search */
@@ -514,14 +634,21 @@
   display: flex;
   align-items: center;
   gap: var(--lm-s3);
+  width: 100%;
   min-height: 62px;
   padding: var(--lm-s2) var(--lm-s4);
   border: 1px solid var(--lm-line);
   border-radius: var(--lm-r-control);
   background: #fff;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
 }
-.lm-location__control:focus-within {
+.lm-location__control:hover:not(:disabled) {
   border-color: var(--lm-brand);
+}
+.lm-location__control:disabled {
+  cursor: progress;
 }
 .lm-location__pin {
   width: 20px;
@@ -530,6 +657,7 @@
   flex: none;
 }
 .lm-location__field {
+  display: block;
   flex: 1;
   min-width: 0;
 }
@@ -538,45 +666,14 @@
   font-size: 11px;
   color: var(--lm-muted);
 }
-.lm-location__select {
-  width: 100%;
-  border: 0;
-  padding: 0;
-  background: none;
+.lm-location__value {
+  display: block;
+  overflow: hidden;
   font-size: 13px;
   font-weight: 500;
   color: var(--lm-brand-ink);
-  appearance: none;
-  cursor: pointer;
-}
-.lm-location__select:focus {
-  outline: none;
-}
-.lm-location__chevron {
-  width: 16px;
-  height: 16px;
-  color: var(--lm-muted);
-  flex: none;
-  pointer-events: none;
-}
-.lm-location__locate {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--lm-s2);
-  min-height: var(--lm-tap);
-  margin-top: var(--lm-s2);
-  padding: 0 var(--lm-s4);
-  border: 1px solid var(--lm-line);
-  border-radius: 10px;
-  background: #fff;
-  font-size: 13px;
-  color: var(--lm-brand-ink);
-  cursor: pointer;
-}
-.lm-location__locate:hover:not(:disabled) {
-  border-color: var(--lm-brand);
-  color: var(--lm-brand);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .lm-location__locate-icon {
   width: 16px;
@@ -586,6 +683,12 @@
   margin-top: var(--lm-s2);
   font-size: 12px;
   line-height: 1.45;
+  color: var(--lm-muted);
+}
+.lm-location__msg--ok {
+  color: var(--lm-brand);
+}
+.lm-location__msg--bad {
   color: var(--lm-rx);
 }
 
@@ -630,14 +733,16 @@
   border-radius: var(--lm-r-tile);
   background: var(--lm-tile);
   color: var(--lm-brand);
+  overflow: hidden;
   transition: background-color 0.2s;
 }
 .lm-quick__tile:hover .lm-quick__thumb {
   background: #e6ebe5;
 }
-.lm-quick__icon {
-  width: 26px;
-  height: 26px;
+.lm-quick__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .lm-quick__badge {
   position: absolute;
@@ -1031,7 +1136,9 @@
   background: rgba(255, 255, 255, 0.03);
   text-align: center;
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 }
 .lm-dropzone:hover,
 .lm-dropzone.is-dragging {
@@ -1261,9 +1368,12 @@
   color: var(--lm-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
-.lm-days__btn[aria-pressed='true'] {
+.lm-days__btn[aria-pressed="true"] {
   background: var(--lm-brand);
   border-color: var(--lm-brand);
   color: #fff;
@@ -1562,7 +1672,9 @@
   font-size: 13px;
   text-align: start;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 .lm-support__topic:hover {
   border-color: var(--lm-brand);
@@ -1630,13 +1742,6 @@
     padding: 0 8px;
   }
 
-  .lm-hero {
-    grid-template-columns: 1fr;
-  }
-  .lm-hero__controls {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .lm-cat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1661,9 +1766,20 @@
   .lm-header__right {
     margin-inline-start: auto;
   }
+  /* The chip sits mid-bar, so a chip-anchored panel would run off-screen.
+     Anchor to the (sticky) header and span the gutters instead. */
+  .lm-schedule {
+    position: static;
+  }
+  .lm-schedule__panel {
+    inset-inline: var(--lm-gutter);
+    width: auto;
+  }
 
-  .lm-hero__controls {
-    grid-template-columns: 1fr;
+  /* Search lives in the sticky <MobileSearch /> bar and the area picker in the
+     mobile menu, so the bar's own controls row is dropped. */
+  .lm-header__controls {
+    display: none;
   }
 
   .lm-ai__right {
@@ -1693,8 +1809,11 @@
   .lm-quick__tiles {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .lm-hero__trust {
-    grid-template-columns: 1fr;
+  /* Tightest bars: the wallet chip keeps its balance but drops padding so
+     logo + wallet + menu fit on one row down to 320px. */
+  .lm-wallet-chip {
+    padding: 0 var(--lm-s2);
+    font-size: 13px;
   }
   .lm-kits {
     grid-template-columns: 1fr;

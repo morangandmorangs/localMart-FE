@@ -1,26 +1,12 @@
 import React, { Suspense } from "react";
 import { Route } from "react-router-dom";
-import { Header } from "../Home/components/Header";
-
-// ─── Loading Fallback ────────────────────────────────────────────────────────
-
-const RouteLoadingFallback: React.FC = () => (
-  <div className='min-h-screen flex items-center justify-center'>
-    <div className='text-center'>
-      <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4'></div>
-      <p className='text-gray-600'>Loading...</p>
-    </div>
-  </div>
-);
-
-const PublicRouteWrapper: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => (
-  <>
-    <Header />
-    {children}
-  </>
-);
+import {
+  PublicRouteWrapper,
+  RequireAdmin,
+  RequireCustomer,
+  RequireSession,
+  RouteLoadingFallback,
+} from "./RouteChrome";
 
 export const createImmediateRoute = (
   path: string,
@@ -39,6 +25,80 @@ export const createPublicRoute = (
         <PublicRouteWrapper>
           <Component />
         </PublicRouteWrapper>
+      </Suspense>
+    }
+  />
+);
+
+/** Auth screens render their own full-page layout, so no site header. */
+export const createAuthRoute = (
+  path: string,
+  Component: React.ComponentType,
+) => (
+  <Route
+    key={path}
+    path={path}
+    element={
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <Component />
+      </Suspense>
+    }
+  />
+);
+
+/** Signed-in customer pages: site header, bounced to /signin otherwise. */
+export const createCustomerRoute = (
+  path: string,
+  Component: React.ComponentType,
+) => (
+  <Route
+    key={path}
+    path={path}
+    element={
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <RequireCustomer>
+          <PublicRouteWrapper>
+            <Component />
+          </PublicRouteWrapper>
+        </RequireCustomer>
+      </Suspense>
+    }
+  />
+);
+
+/** Signed-in admin pages: no site header (the dashboard brings its own). */
+export const createAdminRoute = (
+  path: string,
+  Component: React.ComponentType,
+) => (
+  <Route
+    key={path}
+    path={path}
+    element={
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <RequireAdmin>
+          <Component />
+        </RequireAdmin>
+      </Suspense>
+    }
+  />
+);
+
+/** Signed-in pages shared by every role: site header, any session may enter. */
+export const createSessionRoute = (
+  path: string,
+  Component: React.ComponentType,
+) => (
+  <Route
+    key={path}
+    path={path}
+    element={
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <RequireSession>
+          <PublicRouteWrapper>
+            <Component />
+          </PublicRouteWrapper>
+        </RequireSession>
       </Suspense>
     }
   />

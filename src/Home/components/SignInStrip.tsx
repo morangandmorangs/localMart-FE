@@ -1,11 +1,12 @@
-import { useSession } from '../../lib/useSession';
+import { useSelector } from 'react-redux';
+
+import { selectIsAuthenticated } from '../../redux-store/Slices/authSlice';
 import { HeartIcon } from './Icons';
 
 export function SignInStrip() {
-  const { session, loading } = useSession();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  // Hidden while we don't know yet, and once the customer is signed in.
-  if (loading || session.signedIn) return null;
+  if (isAuthenticated) return null;
 
   return (
     <section className="lm-signin" aria-labelledby="lm-signin-title">

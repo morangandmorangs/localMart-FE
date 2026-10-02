@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Atta">
+  <rect width="160" height="160" fill="#c2a878" opacity="0.14"/>
+  <circle cx="80" cy="66" r="34" fill="#c2a878" opacity="0.5"/>
+  <text x="80" y="128" text-anchor="middle" font-family="system-ui, sans-serif"
+        font-size="15" font-weight="500" fill="#c2a878">Atta</text>
+</svg>

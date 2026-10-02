@@ -13,6 +13,11 @@
    layer — a plain `import './Home.css'` in the component is unlayered and would
    beat every utility class put beside an lm- class. */
 @import './Home/Home.css' layer(components);
+@import './Category/Category.css' layer(components);
+@import './pages/Customer/Auth/Auth.css' layer(components);
+@import './Common/Cart/Cart.css' layer(components);
+@import './Common/Logo/Logo.css' layer(components);
+@import './Checkout/Checkout.css' layer(components);
 
 /* Tailwind's preflight is deliberately left out. The reset in @layer base below
    is this app's own and covers the same ground; the two overlap and disagree —

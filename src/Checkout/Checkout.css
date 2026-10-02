@@ -1,0 +1,93 @@
+/* Checkout page. Loaded from src/index.css in the components layer, same as
+   Home.css and Category.css. */
+
+.lm-checkout__panel {
+  max-width: 480px;
+}
+
+.lm-checkout__addresses {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s3);
+  margin-bottom: var(--lm-s5);
+}
+.lm-checkout__address {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: #fff;
+  text-align: start;
+  cursor: pointer;
+}
+.lm-checkout__address:hover {
+  border-color: var(--lm-brand);
+}
+.lm-checkout__address strong {
+  font-size: 14px;
+  color: var(--lm-brand-ink);
+}
+.lm-checkout__address span {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+
+.lm-checkout__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s3);
+  margin-top: var(--lm-s3);
+}
+
+.lm-checkout__pay-title {
+  margin-top: var(--lm-s5);
+}
+
+.lm-checkout__methods {
+  display: flex;
+  gap: var(--lm-s3);
+  margin: var(--lm-s3) 0 var(--lm-s4);
+}
+.lm-checkout__method {
+  display: flex;
+  align-items: center;
+  gap: var(--lm-s2);
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-control);
+  background: #fff;
+  color: var(--lm-brand-ink);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.lm-checkout__method:hover {
+  border-color: var(--lm-brand);
+}
+.lm-checkout__method--active {
+  border-color: var(--lm-brand);
+  background: var(--lm-tile);
+}
+.lm-checkout__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.lm-checkout__mark--gpay {
+  background: #4285f4;
+}
+.lm-checkout__mark--phonepe {
+  background: #5f259f;
+}

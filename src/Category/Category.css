@@ -1,0 +1,492 @@
+/* Category pages. Loaded from src/index.css in the components layer, same as
+   Home.css, so utilities still win against these lm- classes. */
+
+/* ------------------------------------------------------------- Page header */
+
+.lm-catpage__head {
+  display: flex;
+  align-items: center;
+  gap: var(--lm-s4);
+  width: min(100% - (var(--lm-gutter) * 2), var(--lm-max));
+  margin-inline: auto;
+  margin-top: var(--lm-s5);
+}
+.lm-catpage__head-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border-radius: var(--lm-r-tile);
+  background: var(--lm-tile);
+  color: var(--lm-brand);
+}
+.lm-catpage__head-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.lm-catpage__title {
+  font-size: clamp(26px, 3.6vw, 38px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--lm-brand-ink);
+}
+.lm-catpage__subtitle {
+  margin-top: var(--lm-s1);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+
+/* Regulatory notice. Icon plus words — never colour alone. */
+.lm-catpage__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lm-s3);
+  width: min(100% - (var(--lm-gutter) * 2), var(--lm-max));
+  margin-inline: auto;
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-rx-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-rx-bg);
+  color: var(--lm-rx);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.lm-catpage__notice-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-top: 1px;
+}
+
+.lm-catpage__section {
+  width: min(100% - (var(--lm-gutter) * 2), var(--lm-max));
+  margin-inline: auto;
+}
+
+.lm-catpage__subhead {
+  margin-bottom: var(--lm-s4);
+}
+.lm-catpage__subtitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-catpage__subnote {
+  margin-top: var(--lm-s1);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+
+.lm-catpage__missing {
+  width: min(100% - (var(--lm-gutter) * 2), var(--lm-max));
+  margin-inline: auto;
+  padding-block: var(--lm-s8);
+  text-align: center;
+  color: var(--lm-muted);
+}
+.lm-catpage__missing h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--lm-brand-ink);
+  margin-bottom: var(--lm-s3);
+}
+.lm-catpage__missing a {
+  color: var(--lm-brand);
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------ Product grid */
+
+.lm-prod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--lm-s4);
+}
+
+.lm-prod {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s2);
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+}
+
+.lm-pm {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--lm-r-tile);
+  background: var(--lm-tile);
+}
+/* Sold out reads before the label does — but the label is still there. */
+.lm-pm--dimmed {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+.lm-pm__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.lm-prod__name {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--lm-brand-ink);
+}
+.lm-prod__meta,
+.lm-prod__pack {
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--lm-muted);
+}
+
+.lm-prod__pick {
+  display: block;
+  margin-top: var(--lm-s1);
+}
+.lm-prod__select {
+  width: 100%;
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s3);
+  border: 1px solid var(--lm-line);
+  border-radius: 10px;
+  background: var(--lm-surface);
+  color: var(--lm-brand-ink);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.lm-prod__select:focus-visible {
+  border-color: var(--lm-brand);
+}
+
+/* Pushed to the bottom so prices and buttons line up across a ragged row. */
+.lm-prod__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--lm-s3);
+  margin-top: auto;
+  padding-top: var(--lm-s2);
+}
+.lm-prod__price {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--lm-brand-ink);
+}
+
+/* ------------------------------------------------------------------- Stock */
+
+.lm-stock {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+.lm-stock--low {
+  font-weight: 500;
+  color: var(--lm-plan-ink);
+}
+.lm-stock--out {
+  font-weight: 500;
+  color: var(--lm-rx);
+}
+
+/* ---------------------------------------------------- Add / quantity control */
+
+.lm-qty__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--lm-tap);
+  flex: none;
+  padding: 0 var(--lm-s4);
+  border: 1px solid var(--lm-brand);
+  border-radius: 10px;
+  background: var(--lm-brand);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.lm-qty__add:hover:not(:disabled) {
+  background: var(--lm-brand-deep);
+}
+.lm-qty__add:disabled {
+  border-color: var(--lm-line);
+  background: var(--lm-tile);
+  color: var(--lm-muted);
+  cursor: not-allowed;
+}
+.lm-qty__add span[aria-hidden] {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.lm-qty {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  border: 1px solid var(--lm-brand);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.lm-qty__btn {
+  width: var(--lm-tap);
+  height: var(--lm-tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: var(--lm-brand);
+  color: #fff;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lm-qty__btn:hover:not(:disabled) {
+  background: var(--lm-brand-deep);
+}
+.lm-qty__btn:disabled {
+  background: var(--lm-tile);
+  color: var(--lm-muted);
+  cursor: not-allowed;
+}
+.lm-qty__count {
+  min-width: 2.25rem;
+  padding-inline: var(--lm-s1);
+  background: var(--lm-surface);
+  color: var(--lm-brand-ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* -------------------------------------------------------- Restaurant list */
+
+.lm-rest-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s4);
+}
+
+.lm-rest {
+  display: grid;
+  grid-template-columns: 132px 1fr auto;
+  align-items: center;
+  gap: var(--lm-s4);
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+}
+.lm-rest--shut {
+  background: var(--lm-tile);
+}
+
+.lm-rest__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--lm-r-tile);
+  background: var(--lm-tile);
+}
+.lm-rest__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.lm-rest--shut .lm-rest__img {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+.lm-rest__shut-tag {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 3px;
+  background: rgba(27, 58, 46, 0.85);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.lm-rest__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--lm-s3);
+}
+.lm-rest__name {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-rest__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--lm-brand);
+}
+.lm-rest__star {
+  width: 15px;
+  height: 15px;
+}
+.lm-rest__rating-count {
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+.lm-rest__cuisine {
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+.lm-rest__dishes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lm-s2);
+  margin-top: var(--lm-s3);
+}
+.lm-rest__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--lm-s2);
+  margin-top: var(--lm-s3);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+.lm-rest__action {
+  flex: none;
+}
+
+/* ------------------------------------------------------ Prescription panel */
+
+.lm-rx-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--lm-s3);
+  padding: var(--lm-s5);
+  border: 1px solid var(--lm-rx-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-rx-bg);
+}
+.lm-rx-panel__head {
+  display: flex;
+  align-items: center;
+  gap: var(--lm-s3);
+}
+.lm-rx-panel__title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-rx-panel__text {
+  max-width: 62ch;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--lm-brand-ink);
+}
+.lm-rx-panel__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lm-s2);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--lm-rx);
+}
+.lm-rx-panel__note-icon {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin-top: 1px;
+}
+.lm-btn__icon {
+  width: 17px;
+  height: 17px;
+}
+
+/* ------------------------------------------------------------- Breakpoints */
+
+@media (max-width: 768px) {
+  .lm-rest {
+    grid-template-columns: 104px 1fr;
+  }
+  /* The action moves under the body rather than squeezing a third column. */
+  .lm-rest__action {
+    grid-column: 2;
+  }
+  .lm-rest__action .lm-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .lm-prod-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  .lm-prod__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lm-qty,
+  .lm-qty__add,
+  .lm-prod__foot .lm-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .lm-qty__count {
+    flex: 1;
+  }
+}
+
+/* ------------------------------------------------------- Floating cart bar */
+
+/* Same slot/positioning as .lm-support on the homepage — only one of the
+   two is ever on screen, so there is no stacking to coordinate. */
+.lm-cartbar {
+  position: fixed;
+  inset-block-end: var(--lm-gutter);
+  inset-inline-end: var(--lm-gutter);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lm-s2);
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s5);
+  border: 1px solid var(--lm-brand-deep);
+  border-radius: var(--lm-r-chip);
+  background: var(--lm-brand);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 10px 24px rgba(15, 59, 44, 0.24);
+  transition: background-color 0.2s;
+}
+.lm-cartbar:hover {
+  background: var(--lm-brand-deep);
+}
+.lm-cartbar__icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}

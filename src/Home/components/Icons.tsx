@@ -222,3 +222,10 @@ export function CategoryIcon({ name, ...rest }: IconProps & { name: IconName }) 
   const Cmp = CATEGORY_ICONS[name];
   return <Cmp {...rest} />;
 }
+
+export const MicIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
+  </svg>
+);

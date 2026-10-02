@@ -1,0 +1,129 @@
+/* Local Mart logo. Sizes are driven by --lm-logo-size so the mark and the
+   wordmark scale together. */
+
+.lm-logo {
+  --lm-logo-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lm-s2);
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s4);
+  border-radius: var(--lm-r-control);
+  color: var(--lm-brand-ink);
+  font-size: var(--lm-logo-size);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  flex: none;
+}
+.lm-logo--sm {
+  --lm-logo-size: 13px;
+}
+.lm-logo--lg {
+  --lm-logo-size: 22px;
+}
+
+.lm-logo__icon {
+  width: 1.35em;
+  height: 1.35em;
+  flex: none;
+  overflow: visible;
+}
+
+.lm-logo__text {
+  display: inline-flex;
+  gap: 0.28em;
+}
+.lm-logo__word {
+  display: inline-flex;
+}
+/* "Mart" carries the brand colour so the name reads as two beats. */
+.lm-logo__word:last-child {
+  color: var(--lm-brand);
+}
+.lm-logo__char {
+  display: inline-block;
+}
+
+/* -------------------------------------------------------------- Motion */
+
+@media (prefers-reduced-motion: no-preference) {
+  .lm-logo:not(.lm-logo--static) .lm-logo__body,
+  .lm-logo:not(.lm-logo--static) .lm-logo__awning {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: lm-logo-draw 0.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  .lm-logo:not(.lm-logo--static) .lm-logo__awning {
+    animation-delay: 0.25s;
+  }
+
+  .lm-logo:not(.lm-logo--static) .lm-logo__char {
+    opacity: 0;
+    transform: translateY(0.5em);
+    animation: lm-logo-rise 0.45s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  }
+
+  /* Hover/focus effects run on wrapper elements, not on the elements that
+     carry the intro. An animation on the same element would, once it ends,
+     hand control back to the intro keyframes and replay them. */
+  .lm-logo:not(.lm-logo--static) .lm-logo__swing {
+    transform-box: fill-box;
+    transform-origin: 50% 0;
+  }
+  .lm-logo:not(.lm-logo--static):hover .lm-logo__swing,
+  .lm-logo:not(.lm-logo--static):focus-visible .lm-logo__swing {
+    animation: lm-logo-swing 0.7s ease-in-out;
+  }
+  .lm-logo:not(.lm-logo--static):hover .lm-logo__word,
+  .lm-logo:not(.lm-logo--static):focus-visible .lm-logo__word {
+    animation: lm-logo-hop 0.4s ease-out;
+  }
+  .lm-logo:not(.lm-logo--static):hover .lm-logo__word:last-child,
+  .lm-logo:not(.lm-logo--static):focus-visible .lm-logo__word:last-child {
+    animation-delay: 0.08s;
+  }
+}
+
+@keyframes lm-logo-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes lm-logo-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lm-logo-swing {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  60% {
+    transform: rotate(6deg);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+@keyframes lm-logo-hop {
+  50% {
+    transform: translateY(-0.18em);
+  }
+}
+
+/* Small phones: the bar is tight, so trim the padding. */
+@media (max-width: 768px) {
+  .lm-logo--md {
+    padding: 0 var(--lm-s2);
+  }
+}
+@media (max-width: 560px) {
+  .lm-logo--md {
+    --lm-logo-size: 14px;
+  }
+}

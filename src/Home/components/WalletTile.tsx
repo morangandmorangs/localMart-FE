@@ -1,33 +1,8 @@
-import { useEffect, useState } from 'react';
-import { formatCurrency, getWallet, type Wallet } from '../../lib/api/wallet';
-
-type State =
-  | { kind: 'loading' }
-  | { kind: 'signedOut' }
-  | { kind: 'ready'; wallet: Wallet }
-  | { kind: 'error' };
+import { formatCurrency } from '../../lib/api/wallet';
+import { useWallet } from '../../hooks/useWallet';
 
 export function WalletTile() {
-  const [state, setState] = useState<State>({ kind: 'loading' });
-
-  useEffect(() => {
-    let cancelled = false;
-    getWallet()
-      .then((res) => {
-        if (cancelled) return;
-        setState(
-          res.signedIn && res.wallet
-            ? { kind: 'ready', wallet: res.wallet }
-            : { kind: 'signedOut' },
-        );
-      })
-      .catch(() => {
-        if (!cancelled) setState({ kind: 'error' });
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const state = useWallet();
 
   return (
     <div className="lm-wallet">

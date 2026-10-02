@@ -1,20 +1,21 @@
 // Home.css is imported from src/index.css, in the components cascade layer.
-import { AiDietPlanner } from './components/AiDietPlanner';
-import { CategoryGrid } from './components/CategoryGrid';
-import { Footer } from './components/Footer';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { PlanSection } from './components/PlanSection';
-import { SignInStrip } from './components/SignInStrip';
-import { SupportBot } from './components/SupportBot';
+
+import { AiDietPlanner } from "./components/AiDietPlanner";
+import { CategoryGrid } from "./components/CategoryGrid";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { Hero } from "./components/Hero";
+import { MobileSearch } from "./components/MobileSearch";
+import { PlanSection } from "./components/PlanSection";
+import { SignInStrip } from "./components/SignInStrip";
 
 export default function Home() {
   return (
-    <div className="lm-home">
-      {/* TODO(cart): cartCount comes from the cart service. */}
-      <Header cartCount={0} />
+    <div className='lm-home'>
+      <Header />
 
-      <main className="lm-main">
+      <main className='lm-main'>
+        <MobileSearch />
         <Hero />
         <CategoryGrid />
         <AiDietPlanner />
@@ -23,9 +24,6 @@ export default function Home() {
       </main>
 
       <Footer />
-
-      {/* Floats over the page; replaces the old Support link in the header. */}
-      <SupportBot />
     </div>
   );
 }

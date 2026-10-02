@@ -1,0 +1,50 @@
+/* Cart page. Loaded from src/index.css in the components layer, same as
+   Home.css and Category.css. */
+
+.lm-cartpage__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lm-s3);
+}
+
+.lm-cartpage__row {
+  display: grid;
+  grid-template-columns: 88px 1fr auto;
+  align-items: center;
+  gap: var(--lm-s4);
+  padding: var(--lm-s4);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+}
+.lm-cartpage__row .lm-pm {
+  aspect-ratio: 1 / 1;
+}
+
+.lm-cartpage__row-body {
+  min-width: 0;
+}
+
+.lm-cartpage__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lm-s4);
+  margin-top: var(--lm-s5);
+  padding-top: var(--lm-s4);
+  border-top: 1px solid var(--lm-line);
+}
+.lm-cartpage__subtotal {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--lm-brand-ink);
+}
+
+@media (max-width: 560px) {
+  .lm-cartpage__row {
+    grid-template-columns: 64px 1fr;
+  }
+  .lm-cartpage__row > :last-child {
+    grid-column: 2;
+  }
+}

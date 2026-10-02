@@ -1,7 +1,7 @@
 import type { Category } from '../../lib/catalog/types';
 import { PRESCRIPTION_UPLOAD_PATH, subCategoryPath } from '../../lib/catalog/categories';
 import { resolveCartAction } from '../../lib/cart';
-import { AlertIcon, CategoryIcon, ChevronRightIcon, UploadIcon } from './Icons';
+import { AlertIcon, ChevronRightIcon, UploadIcon } from './Icons';
 
 /**
  * Medicine is deliberately not a CategoryCard: it carries a terracotta
@@ -13,7 +13,7 @@ export function MedicineCard({ category }: { category: Category }) {
   return (
     <article className="lm-cat lm-cat--rx">
       <div className="lm-cat__media lm-cat__media--rx">
-        <CategoryIcon name={category.icon} className="lm-cat__icon" />
+        <img src={category.image} alt={category.title} loading="lazy" />
         <span className="lm-badge-strict">STRICT</span>
       </div>
 

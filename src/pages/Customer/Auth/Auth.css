@@ -1,0 +1,64 @@
+/* Sign-in page. Loaded from src/index.css in the components layer, same as
+   Home.css and Category.css. */
+
+.lm-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 220px);
+  padding: var(--lm-s5);
+}
+
+.lm-auth__card {
+  width: min(380px, 100%);
+  padding: var(--lm-s5);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-card);
+  background: var(--lm-surface);
+}
+
+.lm-auth__title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--lm-brand-ink);
+}
+.lm-auth__sub {
+  margin-top: var(--lm-s1);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+
+.lm-auth__field {
+  display: block;
+  margin-top: var(--lm-s4);
+}
+.lm-auth__label {
+  display: block;
+  margin-bottom: var(--lm-s1);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-auth__input {
+  width: 100%;
+  min-height: var(--lm-tap);
+  padding: 0 var(--lm-s3);
+  border: 1px solid var(--lm-line);
+  border-radius: var(--lm-r-control);
+  background: #fff;
+  font-size: 14px;
+}
+.lm-auth__input:focus-visible {
+  border-color: var(--lm-brand);
+}
+
+.lm-auth__error {
+  margin-top: var(--lm-s3);
+  font-size: 13px;
+  color: var(--lm-rx);
+}
+.lm-auth__submit {
+  width: 100%;
+  margin-top: var(--lm-s4);
+}

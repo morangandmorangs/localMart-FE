@@ -3,6 +3,10 @@ import { useLocation } from "react-router-dom";
 
 const PAGE_TITLES: Record<string, string> = {
   "/": "Home",
+  "/category/livestock-vegetables": "Livestock & Vegetables",
+  "/category/grocery": "Grocery",
+  "/category/food": "Food",
+  "/category/medicine": "Medicine",
 };
 
 const FALLBACK_TITLE = "Local Mart";

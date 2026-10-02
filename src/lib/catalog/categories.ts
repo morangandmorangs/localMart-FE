@@ -9,6 +9,7 @@ export const CATEGORIES: Category[] = [
     subtitle: 'From local farms and ghats',
     tileLabel: 'Fresh daily',
     icon: 'leaf',
+    image: 'https://images.pexels.com/photos/868110/pexels-photo-868110.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
     cta: 'Shop fresh',
     subCategories: [
@@ -26,6 +27,7 @@ export const CATEGORIES: Category[] = [
     subtitle: 'Kitchen staples and home needs',
     tileLabel: 'Staples',
     icon: 'basket',
+    image: 'https://images.pexels.com/photos/5951182/pexels-photo-5951182.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
     cta: 'Shop grocery',
     subCategories: [
@@ -43,6 +45,7 @@ export const CATEGORIES: Category[] = [
     subtitle: 'Cooked fresh by local kitchens',
     tileLabel: 'Hot meals',
     icon: 'bowl',
+    image: 'https://images.pexels.com/photos/29148133/pexels-photo-29148133.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
     cta: 'Order food',
     subCategories: [
@@ -60,6 +63,7 @@ export const CATEGORIES: Category[] = [
     subtitle: 'Licensed pharmacies only',
     tileLabel: 'Rx verified',
     icon: 'pill',
+    image: 'https://images.pexels.com/photos/8900031/pexels-photo-8900031.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'rx',
     cta: 'Upload prescription',
     notice:

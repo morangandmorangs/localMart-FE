@@ -10,6 +10,10 @@ export const WEEK_DAYS: { key: WeekDay; short: string; full: string }[] = [
   { key: 'sun', short: 'S', full: 'Sunday' },
 ];
 
+/** Food delivery runs on working days only. */
+export const WORKDAYS = WEEK_DAYS.slice(0, 5);
+export const ALL_WORKDAYS: WeekDay[] = WORKDAYS.map((d) => d.key);
+
 export interface RationSchedule {
   days: WeekDay[];
   slot: 'morning';
