@@ -12,8 +12,7 @@
   /* Surfaces */
   --lm-page: #f3f6f1;
   --lm-surface: #ffffff;
-  --lm-hero-from: #f7faf5;
-  --lm-hero-to: #e2efe3;
+  --lm-hero-from: #f1f6f0;
   --lm-line: #d5e3d8;
   --lm-tile: #f0f3ef;
   --lm-muted: #52665d;
@@ -27,6 +26,20 @@
   --lm-rx: #9a3412;
   --lm-rx-bg: #fbf1ea;
   --lm-rx-line: #e2b89c;
+
+  /* Join-the-network cards: a tint, a deeper corner and a mark per partner */
+  --lm-join-customer: #f6fbeb;
+  --lm-join-customer-deep: #e2f1d3;
+  --lm-join-customer-mark: #1f6c15;
+  --lm-join-merchant: #fdf7e9;
+  --lm-join-merchant-deep: #fcecd0;
+  --lm-join-merchant-mark: #d4862b;
+  --lm-join-farmer: #f6fbea;
+  --lm-join-farmer-deep: #e5f1cf;
+  --lm-join-farmer-mark: #4f9a2e;
+  --lm-join-delivery: #eaf1fe;
+  --lm-join-delivery-deep: #d6e6fa;
+  --lm-join-delivery-mark: #1f8a78;
 
   /* Radii */
   --lm-r-card: 20px;
@@ -54,5 +67,5 @@
 
   /* Page gutter, shared by every section so they align */
   --lm-gutter: clamp(16px, 4vw, 40px);
-  --lm-max: 1200px;
+  --lm-max: 1360px;
 }

@@ -1,10 +1,9 @@
 import { initializeApp, type FirebaseOptions } from "firebase/app";
 import { getAnalytics, isSupported, type Analytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
 
-// Values come from .env.local (see .env.example). Firebase web config is not
-// secret — it ships inside the client bundle — but keeping it in env vars lets
-// dev/staging/prod point at different Firebase projects.
+// Firebase is only used for Analytics. Values come from .env (see
+// .env.example); Firebase web config is not secret — it ships inside the
+// client bundle.
 const firebaseConfig: FirebaseOptions = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -15,21 +14,20 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
-
-/** Phone-OTP sign-in — see lib/firebasePhoneAuth.ts for the actual flow. */
-export const auth = getAuth(app);
+// Without a measurement ID there is nothing to report to, so Firebase is not
+// started at all and a build without the env vars still runs.
+const app = firebaseConfig.measurementId ? initializeApp(firebaseConfig) : null;
 
 // getAnalytics() throws where the measurement SDK can't run (SSR, some
 // browsers, blocked cookies), so gate it behind isSupported() and leave
 // analytics null rather than taking the app down with it.
 export let analytics: Analytics | null = null;
 
-export const analyticsReady: Promise<Analytics | null> = isSupported()
-  .then((supported) => {
-    analytics = supported ? getAnalytics(app) : null;
-    return analytics;
-  })
-  .catch(() => null);
-
-export default app;
+export const analyticsReady: Promise<Analytics | null> = app
+  ? isSupported()
+      .then((supported) => {
+        analytics = supported ? getAnalytics(app) : null;
+        return analytics;
+      })
+      .catch(() => null)
+  : Promise.resolve(null);

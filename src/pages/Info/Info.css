@@ -23,3 +23,7 @@
   color: var(--lm-brand);
   text-decoration: underline;
 }
+.lm-info__cta {
+  margin-bottom: var(--lm-s4);
+  font-weight: 500;
+}

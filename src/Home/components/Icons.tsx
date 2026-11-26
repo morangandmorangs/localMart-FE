@@ -25,15 +25,6 @@ export const StorefrontIcon = (p: IconProps) => (
   </svg>
 );
 
-export const GridIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <rect x="4" y="4" width="6.5" height="6.5" rx="1.4" />
-    <rect x="13.5" y="4" width="6.5" height="6.5" rx="1.4" />
-    <rect x="4" y="13.5" width="6.5" height="6.5" rx="1.4" />
-    <rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.4" />
-  </svg>
-);
-
 export const SearchIcon = (p: IconProps) => (
   <svg {...base} {...p}>
     <circle cx="11" cy="11" r="6.5" />
@@ -48,28 +39,6 @@ export const CartIcon = (p: IconProps) => (
   </svg>
 );
 
-export const OrdersIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
-    <path d="M14 3v4h5M8.5 12.5h7M8.5 16h4.5" />
-  </svg>
-);
-
-export const SupportIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <circle cx="12" cy="12" r="8.5" />
-    <path d="M9.8 9.4a2.3 2.3 0 1 1 3 2.2c-.5.2-.8.7-.8 1.2v.4" />
-    <path d="M12 16.6h.01" />
-  </svg>
-);
-
-export const ProfileIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <circle cx="12" cy="8.5" r="3.6" />
-    <path d="M5 20a7 7 0 0 1 14 0" />
-  </svg>
-);
-
 export const MenuIcon = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M4 7h16M4 12h16M4 17h16" />
@@ -79,18 +48,6 @@ export const MenuIcon = (p: IconProps) => (
 export const CloseIcon = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="m6 6 12 12M18 6 6 18" />
-  </svg>
-);
-
-export const ChevronRightIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <path d="m9.5 5 7 7-7 7" />
-  </svg>
-);
-
-export const ChevronDownIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <path d="m5 9.5 7 7 7-7" />
   </svg>
 );
 
@@ -159,12 +116,6 @@ export const UploadIcon = (p: IconProps) => (
   </svg>
 );
 
-export const HeartIcon = (p: IconProps) => (
-  <svg {...base} {...p}>
-    <path d="M12 20s-7.5-4.6-7.5-9.7A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.9C19.5 15.4 12 20 12 20Z" />
-  </svg>
-);
-
 export const AlertIcon = (p: IconProps) => (
   <svg {...base} {...p}>
     <circle cx="12" cy="12" r="8.5" />
@@ -222,6 +173,28 @@ export function CategoryIcon({ name, ...rest }: IconProps & { name: IconName }) 
   const Cmp = CATEGORY_ICONS[name];
   return <Cmp {...rest} />;
 }
+
+export const PhoneIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="6.5" y="2.5" width="11" height="19" rx="2.4" />
+    <path d="M10.5 18.5h3" />
+  </svg>
+);
+
+export const BoltIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3Z" />
+  </svg>
+);
+
+export const TruckIcon = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M3.5 16.5V7a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v9.5" />
+    <path d="M13.5 9.5h3.7l3.3 3.5v3.5h-1.6M3.5 16.5h1.6M9 16.5h6.2" />
+    <circle cx="7" cy="17" r="1.9" />
+    <circle cx="17" cy="17" r="1.9" />
+  </svg>
+);
 
 export const MicIcon = (p: IconProps) => (
   <svg {...base} {...p}>

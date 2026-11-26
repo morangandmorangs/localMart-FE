@@ -1,19 +1,22 @@
 import { Link, useParams } from "react-router-dom";
 
+import { GET_APP_PATH } from "../config/apps";
 import { Footer } from "../Home/components/Footer";
 import { Header } from "../Home/components/Header";
-import { RESTAURANTS } from "../lib/catalog/products";
+import { useGetRestaurantQuery } from "../redux-store/Services/ProductApi";
 import "./Category.css";
 
 export default function RestaurantPage() {
-  const { id } = useParams<{ id: string }>();
-  const r = RESTAURANTS.find((x) => x.id === id);
+  const { id = "" } = useParams<{ id: string }>();
+  const { data: r, isLoading, isError } = useGetRestaurantQuery(id, { skip: !id });
 
   return (
     <div className='lm-home'>
       <Header />
       <main className='lm-main'>
-        {!r ? (
+        {isLoading ? (
+          <p className='lm-catpage__subnote'>Loading kitchen…</p>
+        ) : isError || !r ? (
           <section className='lm-catpage__missing'>
             <h1>Restaurant not found</h1>
             <p>
@@ -37,6 +40,12 @@ export default function RestaurantPage() {
                 </li>
               ))}
             </ul>
+            {/* Meals are ordered in the app, like everything else. */}
+            <p>
+              <Link className='lm-btn lm-btn--primary' to={GET_APP_PATH}>
+                Order from {r.name} in the app
+              </Link>
+            </p>
             <p>
               <Link to='/category/food'>Back to all restaurants</Link>
             </p>

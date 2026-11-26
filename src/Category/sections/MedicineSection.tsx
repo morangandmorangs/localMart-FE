@@ -1,30 +1,17 @@
-import { PRESCRIPTION_UPLOAD_PATH } from "../../lib/catalog/categories";
-import { resolveCartAction } from "../../lib/cart";
+import { Link } from "react-router-dom";
+
+import { GET_APP_PATH } from "../../config/apps";
 import { AlertIcon, UploadIcon } from "../../Home/components/Icons";
 import { Tag } from "../../Home/components/Tag";
-import { useCartDraft } from "../../lib/useCartDraft";
-import { useGetProductsQuery } from "../../redux-store/Services/ProductApi";
-import { ProductMedia } from "../components/ProductMedia";
-import { QuantityControl } from "../components/QuantityControl";
-import { StockLine } from "../components/StockLine";
+import { ProductShelf } from "../components/ProductShelf";
 
 /**
- * Medicine has two routes, and they are kept visibly apart.
- *
- * Anything needing a script starts at the upload panel so a pharmacist sees
- * it first; only the over-the-counter shelf below can be bought outright.
- * Every button here still goes through resolveCartAction, so an item that
- * later gains a requiresPrescription flag re-routes itself rather than
- * quietly becoming buyable.
+ * Medicine has two routes, and they are kept visibly apart: prescriptions
+ * start at the upload panel so a pharmacist sees them first, and only the
+ * over-the-counter shelf below is ordered outright. Both happen in the
+ * Local Mart app.
  */
 export function MedicineSection() {
-  const cart = useCartDraft();
-  const {
-    data: medicines,
-    isLoading,
-    isError,
-  } = useGetProductsQuery({ category: "medicine" });
-
   return (
     <>
       <section className='lm-catpage__section' aria-labelledby='lm-rx-title'>
@@ -37,21 +24,21 @@ export function MedicineSection() {
           </div>
 
           <p className='lm-rx-panel__text'>
-            Upload a photo or PDF of your prescription. A licensed pharmacist
-            checks it before anything is dispensed, and will call you if a
-            substitution is needed.
+            Upload a photo of your prescription in the Local Mart app. A
+            licensed pharmacist checks it before anything is dispensed, and
+            will call you if a substitution is needed.
           </p>
 
-          <a className='lm-btn lm-btn--solid' href={PRESCRIPTION_UPLOAD_PATH}>
+          <Link className='lm-btn lm-btn--primary' to={GET_APP_PATH}>
             <UploadIcon className='lm-btn__icon' />
-            Upload prescription
-          </a>
+            Upload prescription in the app
+          </Link>
 
           <p className='lm-rx-panel__note'>
             <AlertIcon className='lm-rx-panel__note-icon' />
             <span>
-              Prescription items are never added to the cart directly, and no
-              substitution is made without your consent.
+              Prescription items are only dispensed after a pharmacist checks
+              them, and no substitution is made without your consent.
             </span>
           </p>
         </div>
@@ -65,63 +52,7 @@ export function MedicineSection() {
           <p className='lm-catpage__subnote'>No prescription needed here.</p>
         </div>
 
-        {isLoading && (
-          <p className='lm-catpage__subnote'>Loading over-the-counter…</p>
-        )}
-        {(isError || (!isLoading && !medicines)) && (
-          <p className='lm-catpage__subnote'>
-            Couldn't load over-the-counter medicine. Try again shortly.
-          </p>
-        )}
-
-        <div className='lm-prod-grid'>
-          {medicines?.map((med) => {
-            const stock = med.stockCount ?? 0;
-            const quantity = cart.quantityOf(med.id);
-            const action = resolveCartAction({
-              productId: med.id,
-              name: med.name,
-              requiresPrescription: med.requiresPrescription,
-            });
-
-            return (
-              <article className='lm-prod' key={med.id}>
-                <ProductMedia
-                  src={med.image}
-                  alt={med.name}
-                  dimmed={stock === 0}
-                />
-
-                <h3 className='lm-prod__name'>{med.name}</h3>
-                {med.useFor && <p className='lm-prod__meta'>{med.useFor}</p>}
-                {med.pack && <p className='lm-prod__pack'>{med.pack}</p>}
-
-                <div className='lm-prod__foot'>
-                  <div>
-                    <p className='lm-prod__price'>₹{med.price}</p>
-                    <StockLine stockCount={stock} />
-                  </div>
-
-                  {action.kind === "prescription" ? (
-                    // Defensive: nothing seeded under medicine is flagged
-                    // today, but if one ever is, it must route and not sell.
-                    <a className='lm-btn lm-btn--outline' href={action.href}>
-                      {action.label}
-                    </a>
-                  ) : (
-                    <QuantityControl
-                      quantity={quantity}
-                      max={stock}
-                      label={med.name}
-                      onIncrement={() => cart.increment(med.id, stock)}
-                      onDecrement={() => cart.decrement(med.id)}
-                    />
-                  )}
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        <ProductShelf query={{ category: "medicine" }} noun='over-the-counter medicine' />
       </section>
     </>
   );

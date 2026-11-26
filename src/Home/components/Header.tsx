@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { GET_APP_PATH } from "../../config/apps";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { Logo } from "../../Common/Logo/Logo";
-import { CloseIcon, MenuIcon, ProfileIcon } from "./Icons";
+import { CalendarIcon, CartIcon, CloseIcon, MenuIcon, PhoneIcon } from "./Icons";
 import { LocationPicker } from "./LocationPicker";
 import { SearchBar } from "./SearchBar";
-import { ScheduleDelivery } from "./ScheduleDelivery";
 
-const NAV = [{ href: "/account", label: "Account", Icon: ProfileIcon }];
+// No sign-in on the site: the cart, the schedule and this link all lead to
+// the page that sends shoppers to the Local Mart app.
+const NAV = [{ href: GET_APP_PATH, label: "Get the app", Icon: PhoneIcon }];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [pinned, setPinned] = useState(true);
-  const [scheduleOpen, setScheduleOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   // Same breakpoint as the 768px block in Home.css where the nav collapses.
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -55,9 +56,8 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  // An open mobile menu or schedule panel rides inside the bar, so it holds
-  // the bar in place.
-  const shown = pinned || open || scheduleOpen;
+  // An open mobile menu rides inside the bar, so it holds the bar in place.
+  const shown = pinned || open;
 
   return (
     <header
@@ -69,8 +69,6 @@ export function Header() {
         .filter(Boolean)
         .join(" ")}
     >
-      <div className='lm-header__strip' aria-hidden='true' />
-
       <div className='lm-header__bar'>
         <Logo to='/' />
 
@@ -78,6 +76,14 @@ export function Header() {
           {!isMobile && <LocationPicker />}
           <SearchBar />
         </div>
+
+        <Link
+          className='lm-nav__link lm-cart'
+          to={GET_APP_PATH}
+          aria-label='Cart: order in the Local Mart app'
+        >
+          <CartIcon className='lm-nav__icon' />
+        </Link>
 
         <nav className='lm-nav' aria-label='Main'>
           <ul className='lm-nav__list'>
@@ -93,7 +99,14 @@ export function Header() {
         </nav>
 
         <div className='lm-header__right'>
-          <ScheduleDelivery onOpenChange={setScheduleOpen} />
+          <Link
+            className='lm-schedule-chip'
+            to={GET_APP_PATH}
+            aria-label='Schedule deliveries in the Local Mart app'
+          >
+            <CalendarIcon className='lm-nav__icon' />
+            <span className='lm-schedule-chip__label'>Schedule</span>
+          </Link>
           <button
             ref={menuButtonRef}
             type='button'
@@ -128,12 +141,3 @@ export function Header() {
     </header>
   );
 }
-
-// Hide the support bot on the hero section and show
-// it on /signin?redirect=/checkout and /checkout
-// Instead show
-// in mobile view, take the        <LocationPicker /> in the header
-// and move it to the top of the mobile menu, above the nav links.
-// and in desktop view, keep it in the header as is.
-// Create a new search bottom in home page, onClick search and Mic Button should
-// appear in the search bar, and the search bar should be sticky on scroll.

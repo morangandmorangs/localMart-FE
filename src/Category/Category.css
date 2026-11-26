@@ -201,9 +201,11 @@
   color: var(--lm-rx);
 }
 
-/* ---------------------------------------------------- Add / quantity control */
+/* ------------------------------------------------------------- Order button */
 
-.lm-qty__add {
+/* Every product's buy button. It leads to the "Get the app" page, since
+   orders are placed in the Local Mart app. */
+.lm-order {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -217,59 +219,17 @@
   color: #fff;
   font-size: 14px;
   font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
 }
-.lm-qty__add:hover:not(:disabled) {
+.lm-order:hover:not(:disabled) {
   background: var(--lm-brand-deep);
 }
-.lm-qty__add:disabled {
+.lm-order:disabled {
   border-color: var(--lm-line);
   background: var(--lm-tile);
   color: var(--lm-muted);
   cursor: not-allowed;
-}
-.lm-qty__add span[aria-hidden] {
-  font-size: 17px;
-  line-height: 1;
-}
-
-.lm-qty {
-  display: inline-flex;
-  align-items: center;
-  flex: none;
-  border: 1px solid var(--lm-brand);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.lm-qty__btn {
-  width: var(--lm-tap);
-  height: var(--lm-tap);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  background: var(--lm-brand);
-  color: #fff;
-  font-size: 17px;
-  line-height: 1;
-  cursor: pointer;
-}
-.lm-qty__btn:hover:not(:disabled) {
-  background: var(--lm-brand-deep);
-}
-.lm-qty__btn:disabled {
-  background: var(--lm-tile);
-  color: var(--lm-muted);
-  cursor: not-allowed;
-}
-.lm-qty__count {
-  min-width: 2.25rem;
-  padding-inline: var(--lm-s1);
-  background: var(--lm-surface);
-  color: var(--lm-brand-ink);
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
 }
 
 /* -------------------------------------------------------- Restaurant list */
@@ -448,45 +408,9 @@
     flex-direction: column;
     align-items: stretch;
   }
-  .lm-qty,
-  .lm-qty__add,
+  .lm-order,
   .lm-prod__foot .lm-btn {
     width: 100%;
     justify-content: center;
   }
-  .lm-qty__count {
-    flex: 1;
-  }
-}
-
-/* ------------------------------------------------------- Floating cart bar */
-
-/* Same slot/positioning as .lm-support on the homepage — only one of the
-   two is ever on screen, so there is no stacking to coordinate. */
-.lm-cartbar {
-  position: fixed;
-  inset-block-end: var(--lm-gutter);
-  inset-inline-end: var(--lm-gutter);
-  z-index: 50;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--lm-s2);
-  min-height: var(--lm-tap);
-  padding: 0 var(--lm-s5);
-  border: 1px solid var(--lm-brand-deep);
-  border-radius: var(--lm-r-chip);
-  background: var(--lm-brand);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 10px 24px rgba(15, 59, 44, 0.24);
-  transition: background-color 0.2s;
-}
-.lm-cartbar:hover {
-  background: var(--lm-brand-deep);
-}
-.lm-cartbar__icon {
-  width: 20px;
-  height: 20px;
-  flex: none;
 }

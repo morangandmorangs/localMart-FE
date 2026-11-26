@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { GET_APP_PATH } from '../../config/apps';
 import { WEEK_DAYS, type WeekDay } from '../../lib/api/ration';
 import { CalendarIcon } from './Icons';
-import { WalletTile } from './WalletTile';
 
 export function DailyRationCard() {
   const [days, setDays] = useState<WeekDay[]>([
@@ -55,17 +56,19 @@ export function DailyRationCard() {
           <p className="lm-tile-plain__note">Morning slot · pause anytime</p>
         </div>
 
-        <WalletTile />
+        <div className="lm-tile-plain">
+          <p className="lm-tile-plain__label">LOCAL MART WALLET</p>
+          <p className="lm-tile-plain__note">
+            Auto-pays each delivery. Top up by UPI in the app.
+          </p>
+        </div>
       </div>
 
+      {/* The days above are a preview; the ration is set up in the app. */}
       <div className="lm-plan-card__actions">
-        {/* TODO(ration): save the selected days against the customer. */}
-        <button type="button" className="lm-btn lm-btn--primary">
-          Start Daily Ration
-        </button>
-        <button type="button" className="lm-btn lm-btn--plan-outline">
-          Add wallet
-        </button>
+        <Link className="lm-btn lm-btn--primary" to={GET_APP_PATH}>
+          Start Daily Ration in the app
+        </Link>
       </div>
     </article>
   );

@@ -30,7 +30,6 @@ export interface Category {
   /** Cover photo for the category card. Sourced from the internet (Pexels). */
   image: string;
   family: Extract<Family, 'product' | 'rx'>;
-  cta: string;
   subCategories: SubCategory[];
   /** Regulatory notice, rendered on strict categories only. */
   notice?: string;
@@ -73,7 +72,7 @@ export interface Product {
   origin?: string;
   /** What an OTC medicine treats. Shown so nobody guesses. */
   useFor?: string;
-  /** Rx items never go straight to the cart — see lib/cart.ts. */
+  /** Rx items are only dispensed after a pharmacist checks the prescription. */
   requiresPrescription?: boolean;
 }
 

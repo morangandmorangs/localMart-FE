@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 
 import { CATEGORIES } from "../lib/catalog/categories";
-import { CartBar } from "../Home/components/CartBar";
 import { Footer } from "../Home/components/Footer";
 import { Header } from "../Home/components/Header";
 import { AlertIcon, CategoryIcon } from "../Home/components/Icons";
@@ -74,7 +73,6 @@ export default function CategoryPage() {
       </main>
 
       <Footer />
-      <CartBar />
     </div>
   );
 }
