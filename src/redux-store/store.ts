@@ -1,59 +1,17 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
 
 import { apiSlice } from "./apiSlice";
-import { createIdbStorage } from "./idbStorage";
-import authReducer from "./Slices/authSlice";
-import cartReducer from "./Slices/cartSlice";
-import scheduleReducer from "./Slices/scheduleSlice";
-import staffAuthReducer from "./Slices/staffAuthSlice";
 
-// Create IndexedDB storage for redux-persist
-const idbStorage = createIdbStorage("LocalMart-web-store");
-
-// Configure persist options for our root reducer
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage: idbStorage,
-  whitelist: ["auth", "cart", "staffAuth", "schedule"],
-  blacklist: ["api"], // Don't persist API cache
-};
-
-const rootReducer = combineReducers({
-  auth: authReducer,
-  cart: cartReducer,
-  schedule: scheduleReducer,
-  staffAuth: staffAuthReducer,
-  [apiSlice.reducerPath]: apiSlice.reducer,
-});
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
+// Only the API cache lives here. There is no sign-in or cart on the site, so
+// nothing is persisted between visits.
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { [apiSlice.reducerPath]: apiSlice.reducer },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      // Redux Persist middleware needs these actions to be ignored
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(apiSlice.middleware),
+    getDefaultMiddleware().concat(apiSlice.middleware),
 });
-
-// Create persistor for use with PersistGate
-export const persistor = persistStore(store);
 
 // Setup listeners for automatic refetching
 setupListeners(store.dispatch);
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,42 +1,55 @@
-import GradientWaves from "../../Common/GradientWaves";
-import { ShieldIcon } from "./Icons";
-import { CategoryQuickCard } from "./CategoryQuickCard";
-import { Stamp } from "./Stamp";
+import { BoltIcon, LeafIcon, ShieldIcon } from "./Icons";
+import { PlanSmarter } from "./PlanSmarter";
+import { ShopByCategory } from "./ShopByCategory";
 
-const prefersReducedMotion = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const PERKS = [
+  { label: "Fresh & Local", Icon: LeafIcon },
+  { label: "Trusted Sellers", Icon: ShieldIcon },
+  { label: "Fast Delivery", Icon: BoltIcon },
+];
 
+/** Headline over the farmer photo, then the shop and planning cards, which
+ *  ride up over the bottom of the photo. */
 export function Hero() {
   return (
     <section className='lm-hero' aria-labelledby='lm-hero-title'>
-      {/* Brand palette: deep green haze, brand-green waves, mint crests. */}
-      <div className='lm-hero__waves' aria-hidden='true'>
-        <GradientWaves
-          horizonColor='#0f3b2c'
-          waveColor='#15573f'
-          crestColor='#bfe8cf'
-          speed={prefersReducedMotion() ? 0 : 0.3}
-          mouseInteraction={false}
-          grainIntensity={0.03}
+      <div className='lm-hero__top'>
+        <img
+          className='lm-hero__art'
+          src='/home/hero-farmer.jpg'
+          alt=''
+          width={875}
+          height={335}
+          fetchPriority='high'
         />
-      </div>
-      <div className='lm-hero__right'>
-        <CategoryQuickCard />
+
+        <div className='lm-hero__copy'>
+          <h1 className='lm-hero__title' id='lm-hero-title'>
+            Your Local
+            <br />
+            Market, <span className='lm-hero__accent'>Online</span>
+          </h1>
+          <p className='lm-hero__intro'>
+            Buy fresh local produce, support local farmers, and get it
+            delivered to your home or business.
+          </p>
+          <ul className='lm-hero__perks'>
+            {PERKS.map(({ label, Icon }) => (
+              <li key={label}>
+                <span className='lm-hero__perk-mark'>
+                  <Icon />
+                </span>
+                {label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <ul className='absolute -right-8 -bottom-8 z-1 hidden min-[1100px]:block' aria-label='Local Mart promises'>
-        <Stamp
-          icon={<ShieldIcon />}
-          ringText='VERIFIED SELLERS • EVERY LISTING REVIEWED • '
-          label=''
-          tilt={-6}
-          delay={0.7}
-        />
-      </ul>
+      <div className='lm-hero__cards'>
+        <ShopByCategory />
+        <PlanSmarter />
+      </div>
     </section>
   );
 }
-// Hide the support bot on the hero section and show
-// it on /signin?redirect=/checkout and /checkout
-// Instead show

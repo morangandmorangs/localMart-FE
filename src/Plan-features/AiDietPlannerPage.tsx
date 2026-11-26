@@ -1,15 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import { GET_APP_PATH } from "../config/apps";
 import { Footer } from "../Home/components/Footer";
 import { Header } from "../Home/components/Header";
-import { selectIsAuthenticated } from "../redux-store/Slices/authSlice";
-import {
-  scheduleDeliveries,
-  selectScheduledDeliveries,
-} from "../redux-store/Slices/scheduleSlice";
 import {
   DAILY_KCAL,
   DAILY_MEALS,
@@ -31,10 +25,6 @@ type Phase = "idle" | "generating" | "done";
 
 /** Mock AI planner: any uploaded image "generates" the Lean Bulk plan. */
 export default function AiDietPlannerPage() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
-  const scheduled = useSelector(selectScheduledDeliveries);
   const [phase, setPhase] = useState<Phase>("idle");
   const [stage, setStage] = useState(0);
   const [preview, setPreview] = useState<string | null>(null);
@@ -71,41 +61,6 @@ export default function AiDietPlannerPage() {
   };
 
   const total = weeks.reduce((s, w) => s + w.total, 0);
-  // Stable per upload so re-scheduling the same plan replaces, not duplicates.
-  const planId = "lean-bulk-30";
-  const allScheduled = weeks.every((w) =>
-    scheduled.some((d) => d.id === `${planId}-w${w.week}`),
-  );
-
-  const onSchedule = () => {
-    if (!isAuthenticated) {
-      navigate("/signin?redirect=/ai-diet-planner");
-      return;
-    }
-    dispatch(
-      scheduleDeliveries(
-        weeks.map((w) => ({
-          id: `${planId}-w${w.week}`,
-          label: `Diet plan · Week ${w.week}`,
-          deliverOn: w.date.toISOString(),
-          total: w.total,
-          lines: w.lines.map(({ item, quantity }) => ({
-            id: item.id,
-            name: item.name,
-            emoji: item.emoji,
-            pack: item.pack,
-            price: item.price,
-            quantity,
-          })),
-        })),
-      ),
-    );
-    toast.success(`${weeks.length} deliveries scheduled`);
-  };
-
-  const onCheckout = () =>
-    navigate(isAuthenticated ? "/checkout" : "/signin?redirect=/checkout");
-
   return (
     <div className='lm-home'>
       <Header />
@@ -151,7 +106,7 @@ export default function AiDietPlannerPage() {
         </section>
 
         {phase === "done" && (
-          <section className='lm-catpage__section lm-plan'>
+          <section className='lm-catpage__section lm-aidiet__plan'>
             <h2 className='lm-catpage__title'>Your {PLAN_DAYS}-day plan is ready</h2>
             <p className='lm-catpage__subtitle'>
               ~{DAILY_KCAL} kcal/day · {DAILY_MEALS.length} meals ·{" "}
@@ -194,22 +149,15 @@ export default function AiDietPlannerPage() {
               </div>
             ))}
 
-            <div className='lm-cartpage__summary lm-aidiet__summary'>
-              <p className='lm-cartpage__subtotal'>
+            {/* Ordering and weekly deliveries are set up in the app. */}
+            <div className='lm-aidiet__summary'>
+              <p className='lm-aidiet__total'>
                 {weeks.length} deliveries · ₹{total}
               </p>
               <div className='lm-aidiet__actions'>
-                <button
-                  className='lm-btn lm-btn--primary'
-                  type='button'
-                  onClick={onSchedule}
-                  disabled={allScheduled}
-                >
-                  {allScheduled ? "Scheduled ✓" : `Schedule (${weeks.length})`}
-                </button>
-                <button className='lm-btn' type='button' onClick={onCheckout}>
-                  Checkout
-                </button>
+                <Link className='lm-btn lm-btn--primary' to={GET_APP_PATH}>
+                  Order this plan in the app
+                </Link>
               </div>
             </div>
           </section>

@@ -11,7 +11,6 @@ export const CATEGORIES: Category[] = [
     icon: 'leaf',
     image: 'https://images.pexels.com/photos/868110/pexels-photo-868110.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
-    cta: 'Shop fresh',
     subCategories: [
       { slug: 'seasonal-vegetables', label: 'Seasonal vegetables' },
       { slug: 'leafy-greens-herbs', label: 'Leafy greens & herbs' },
@@ -29,7 +28,6 @@ export const CATEGORIES: Category[] = [
     icon: 'basket',
     image: 'https://images.pexels.com/photos/5951182/pexels-photo-5951182.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
-    cta: 'Shop grocery',
     subCategories: [
       { slug: 'rice-atta-dal', label: 'Rice, atta & dal' },
       { slug: 'oil-ghee-spices', label: 'Oil, ghee & spices' },
@@ -47,7 +45,6 @@ export const CATEGORIES: Category[] = [
     icon: 'bowl',
     image: 'https://images.pexels.com/photos/29148133/pexels-photo-29148133.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'product',
-    cta: 'Order food',
     subCategories: [
       { slug: 'assamese-thali', label: 'Assamese thali' },
       { slug: 'home-style-tiffin', label: 'Home-style tiffin' },
@@ -65,7 +62,6 @@ export const CATEGORIES: Category[] = [
     icon: 'pill',
     image: 'https://images.pexels.com/photos/8900031/pexels-photo-8900031.jpeg?auto=compress&cs=tinysrgb&w=800',
     family: 'rx',
-    cta: 'Upload prescription',
     notice:
       'Rx items ship only after a pharmacist checks your valid prescription. No substitutions without consent.',
     subCategories: [
@@ -82,9 +78,3 @@ export const CATEGORIES: Category[] = [
 ];
 
 export const categoryPath = (slug: string) => `/category/${slug}`;
-export const subCategoryPath = (slug: string, sub: string) =>
-  `/category/${slug}/${sub}`;
-
-/** Where the Rx flow starts. Anything flagged requiresPrescription routes
- *  here instead of to the cart. */
-export const PRESCRIPTION_UPLOAD_PATH = '/prescription/upload';

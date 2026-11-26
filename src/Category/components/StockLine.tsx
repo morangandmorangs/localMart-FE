@@ -1,4 +1,6 @@
-import { LOW_STOCK_THRESHOLD } from "../../lib/catalog/products";
+/** Below this, the card says how few are left instead of just "in stock".
+ *  Matches LOW_STOCK_THRESHOLD in localMart-BEE. */
+const LOW_STOCK_THRESHOLD = 10;
 
 /**
  * How much is left.

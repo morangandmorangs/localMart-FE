@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { GET_APP_PATH } from "../../config/apps";
 import { FESTIVE_KITS } from "../../lib/catalog/festiveKits";
 import { GiftIcon } from "./Icons";
 
@@ -29,13 +31,9 @@ export function FestiveRationCard() {
       </ul>
 
       <div className='lm-plan-card__actions'>
-        <button type='button' className='lm-btn lm-btn--primary'>
-          Plan a festival
-        </button>
-        {/* TODO(payments): instalments come from the wallet service. */}
-        <button type='button' className='lm-btn lm-btn--plan-outline'>
-          Pay in parts from wallet
-        </button>
+        <Link className='lm-btn lm-btn--primary' to={GET_APP_PATH}>
+          Pre-book a kit in the app
+        </Link>
       </div>
     </article>
   );

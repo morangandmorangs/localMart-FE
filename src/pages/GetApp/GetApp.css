@@ -1,0 +1,72 @@
+/* "Get the app" page. Loaded from src/index.css in the components layer. */
+
+.lm-getapp {
+  width: min(100% - (var(--lm-gutter) * 2), 36rem);
+  margin-inline: auto;
+  padding-block: var(--lm-s8);
+  color: var(--lm-brand-ink);
+}
+
+.lm-getapp__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--lm-r-tile);
+  background: var(--lm-join-customer-mark);
+  color: #fff;
+}
+.lm-getapp__mark svg {
+  width: 28px;
+  height: 28px;
+}
+
+.lm-getapp__title {
+  margin-top: var(--lm-s5);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.lm-getapp__intro {
+  margin-top: var(--lm-s3);
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--lm-muted);
+}
+
+.lm-getapp__list {
+  display: grid;
+  gap: var(--lm-s2);
+  margin-top: var(--lm-s5);
+  padding-inline-start: var(--lm-s5);
+  list-style: disc;
+  font-size: 15px;
+}
+
+.lm-getapp__cta {
+  margin-top: var(--lm-s6);
+}
+
+.lm-getapp__partners {
+  margin-top: var(--lm-s7);
+  padding-top: var(--lm-s5);
+  border-top: 1px solid var(--lm-line);
+  font-size: 14px;
+  color: var(--lm-muted);
+}
+.lm-getapp__partners-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--lm-brand-ink);
+}
+.lm-getapp__partners ul {
+  display: grid;
+  gap: var(--lm-s2);
+  margin-top: var(--lm-s3);
+}
+.lm-getapp__partners a {
+  color: var(--lm-brand);
+  font-weight: 500;
+  text-decoration: underline;
+}

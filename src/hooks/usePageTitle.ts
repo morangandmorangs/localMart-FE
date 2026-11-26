@@ -12,6 +12,9 @@ const PAGE_TITLES: Record<string, string> = {
   "/help": "Help - Local Mart",
   "/terms": "Terms - Local Mart",
   "/support": "Support - Local Mart",
+  "/get-app": "Get the app - Local Mart",
+  "/search": "Search - Local Mart",
+  "/ai-diet-planner": "AI Diet Planner - Local Mart",
 };
 
 const FALLBACK_TITLE = "Local Mart";

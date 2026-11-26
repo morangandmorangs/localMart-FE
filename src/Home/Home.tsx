@@ -1,13 +1,11 @@
 // Home.css is imported from src/index.css, in the components cascade layer.
 
-import { AiDietPlanner } from "./components/AiDietPlanner";
-import { CategoryGrid } from "./components/CategoryGrid";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { MobileSearch } from "./components/MobileSearch";
+import { NetworkSection } from "./components/NetworkSection";
 import { PlanSection } from "./components/PlanSection";
-import { SignInStrip } from "./components/SignInStrip";
 
 export default function Home() {
   return (
@@ -17,10 +15,8 @@ export default function Home() {
       <main className='lm-main'>
         <MobileSearch />
         <Hero />
-        <CategoryGrid />
-        <AiDietPlanner />
+        <NetworkSection />
         <PlanSection />
-        <SignInStrip />
       </main>
 
       <Footer />
